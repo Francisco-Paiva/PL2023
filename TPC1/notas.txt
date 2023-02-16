@@ -1,1 +1,0 @@
-os casos pode haver menores de idade (pessoas com idade inferior a 10 para a expressao regular)
