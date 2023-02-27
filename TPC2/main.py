@@ -24,5 +24,5 @@ for line in sys.stdin:
         elif "=" == elem:
             print(soma)
             sys.exit()
-        if boo:
+        if boo and elem.isdigit():
             soma += float(elem)
