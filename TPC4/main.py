@@ -1,5 +1,52 @@
 import re
 import json
+import io
+
+def create(name,lis):
+    file = io.open(name, 'w')
+    tam = len(lis)
+    x = len(lis[0])
+    file.write("[\n")
+    z = 1
+    y = 1   
+    for i in lis:
+        file.write("  {\n")
+        for key, value in i.items():
+            if(isinstance(value, list)):
+                if(z==x):
+                    #file.write("\t")
+                    file.write("\t\t\"%s\":" % key)
+                    file.write("[")
+                    for i in range(len(value)):
+                        if(i==len(value)-1):
+                            file.write("%s" % str(value[i]))
+                        else:
+                            file.write("%s," % str(value[i]))
+                    file.write("]\n") 
+                    z=1    
+                else:
+                    file.write("\"%s\":" % key)
+                    file.write("[")
+                    for i in range(len(value)):
+                        if(i==len(value)-1):
+                            file.write("%s" % str(value[i]))
+                        else:
+                            file.write("%s," % str(value[i]))
+                    file.write("],\n")            
+                    z+=1
+            else:        
+                if(z==x):
+                    file.write("\t\t\"%s\": \"%s\"\n" % (key, value))
+                    z=1    
+                else:
+                    file.write("\t\t\"%s\": \"%s\",\n" % (key, value))
+                    z+=1    
+        if(y==tam):
+            file.write("  }\n")
+        else:
+            file.write("  },\n")
+            y+=1    
+    file.write(']\n')
 
 def fun_0():
     f = open("PL\\PL2023\\PL2023\\TPC4\\alunos.csv","r",encoding = 'utf-8')
@@ -15,10 +62,11 @@ def fun_0():
             dic[keys[i]] = val[i]
             i+=1
         arr.append(dic)
-    file_json=open("PL\\PL2023\\PL2023\\TPC4\\alunos.json","w+",encoding = 'utf-8')
-    json.dump(arr,file_json)
+    create("PL\\PL2023\\PL2023\\TPC4\\alunos.json",arr)
+    #file_json=open("alunos.json","w+",encoding = 'utf-8')
+    #json.dump(arr,file_json)
 
-#fun_0()
+fun_0()
 
 def fun_1():
     f = open("PL\\PL2023\\PL2023\\TPC4\\alunos1.csv","r",encoding = 'utf-8')
@@ -65,10 +113,11 @@ def fun_1():
             j+=1
         arr_values.append(dic_values)
     #print(arr_values)
-    file_json=open("PL\\PL2023\\PL2023\\TPC4\\alunos1.json","w+",encoding = 'utf-8')
-    json.dump(arr_values,file_json)
+    create("PL\\PL2023\\PL2023\\TPC4\\alunos1.json",arr_values)
+    #file_json=open("alunos1.json","w+",encoding = 'utf-8')
+    #json.dump(arr_values,file_json)
 
-#fun_1()
+fun_1()
 
 def fun_2():
     f = open("PL\\PL2023\\PL2023\\TPC4\\alunos2.csv","r",encoding = 'utf-8')
@@ -132,10 +181,11 @@ def fun_2():
             j+=1
         arr_values.append(dic_values)
     #print(arr_values)
-    file_json=open("PL\\PL2023\\PL2023\\TPC4\\alunos2.json","w+",encoding = 'utf-8')
-    json.dump(arr_values,file_json)
+    create("PL\\PL2023\\PL2023\\TPC4\\alunos2.json",arr_values)
+    #file_json=open("alunos2.json","w+",encoding = 'utf-8')
+    #json.dump(arr_values,file_json)
 
-#fun_2()
+fun_2()
 
 def soma(lista):
     ret = 0
@@ -221,8 +271,9 @@ def fun_3(nome):
         arr_values.append(dic_values)
     #print(arr_values)
     name = name_path + ".json"
-    file_json=open(name,"w+",encoding = 'utf-8')
-    json.dump(arr_values,file_json)
+    create(name,arr_values)
+    #file_json=open(name,"w+",encoding = 'utf-8')
+    #json.dump(arr_values,file_json)
 
-#fun_3("alunos3")
-#fun_3("alunos4")
+fun_3("alunos3")
+fun_3("alunos4")
